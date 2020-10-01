@@ -33,7 +33,7 @@ from discord.ext         import commands
 from isartbot.helper     import Helper
 from isartbot.checks     import is_moderator, is_admin
 from isartbot.database   import Server
-from isartbot.converters import MemberConverter
+from isartbot.converters import MemberConverter, BetterRoleConverter
 
 class ModerationExt(commands.Cog):
     """Helps with moderation"""
@@ -62,6 +62,52 @@ class ModerationExt(commands.Cog):
     @commands.check(is_moderator)
     async def mod(self, ctx):
         await ctx.send_help(ctx.command)
+
+    @mod.group(pass_context=True, invoke_without_command=True, help="mod_verification_help", description="mod_verification_description")
+    @commands.check(is_moderator)
+    async def verification(self, ctx):
+        """ Shows the current verification role """
+
+        server        = ctx.bot.database.session.query(Server).filter(Server.discord_id == ctx.guild.id).first()
+        verified_role = discord.utils.get(ctx.guild.roles, id = (server.verified_role_id if server != None else 0))
+
+        embed = discord.Embed(
+            title       =    await ctx.bot.get_translation(ctx, "verified_role"),
+            description = f"{await ctx.bot.get_translation(ctx, 'verified_role_is')}: {verified_role.mention if verified_role != None else 'None'}",
+            colour      = discord.Color.green()
+        )
+
+        await ctx.send(embed=embed)
+
+    @verification.command(help="mod_verification_set_help", description="mod_verification_set_description")
+    @commands.check(is_moderator)
+    async def set(self, ctx, role: BetterRoleConverter):
+        """ Sets the current verified role """
+
+        self.bot.logger.info(f"Verified role set to {role.name} ({role.id}) for server named {ctx.guild.name}")
+
+        self.bot.database.session.query(Server).\
+            filter(Server.discord_id == ctx.guild.id).\
+            update({Server.verified_role_id : role.id})
+
+        self.bot.database.session.commit()
+
+        await Helper.send_success(ctx, ctx.channel, "success_set_verified_role", format_content=(role.mention,))
+
+    @verification.command(help="mod_verification_unset_help", description="mod_verification_unset_description")
+    @commands.check(is_moderator)
+    async def unset(self, ctx):
+        """ Removes the verified role """
+
+        self.bot.logger.info(f"Verified role set to None for server named {ctx.guild.name}")
+
+        self.bot.database.session.query(Server).\
+            filter(Server.discord_id == ctx.guild.id).\
+            update({Server.verified_role_id : 0})
+
+        self.bot.database.session.commit()
+
+        await Helper.send_success(ctx, ctx.channel, "success_unset_verified_role")
 
     @mod.command(help="mod_log_set_help", description="mod_log_set_description")
     @commands.check(is_admin)

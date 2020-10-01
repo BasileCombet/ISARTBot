@@ -15,7 +15,6 @@ confirmation_footer=Réagissez avec 👍 si vous voulez continuer
 missing_perms_error=Oups ! Il semblerait qu'il vous manque l'une des permissions suivantes pour exécuter cette commande : {0}.
 missing_bot_perms_error=Oups ! Il semblerait qu'il manque au bot l'une des permissions suivantes pour exécuter cette commande.
 unauthorized_command=Seuls les {0}s peuvent utiliser cette commande.
-verified_role_required=Vous devez avoir le rôle {} pour être capable d'éxecuter cette commande !
 
 moderator_status=moderateur
 super_admin_status=super administrateur
@@ -245,6 +244,27 @@ success_live_role_set=Le rôle de live a été configuré avec succès sur
 success_live_role_disable=Le rôle de live a été désactivé avec succès pour ce serveur.
 
 ## Moderation extension
+
+# Verification
+
+## Commands
+
+mod_verification_help=Groupe de sous-commandes du rôle vérifié
+mod_verification_description=Montre le rôle vérifé du serveur
+
+mod_verification_set_help=Définit un rôle vérifié
+mod_verification_set_description=Définit un rôle vérifié
+
+mod_verification_unset_help=Désacitve le rôle vérifié
+mod_verification_unset_description=Désacitve le rôle vérifié du serveur
+
+## Other
+
+verified_role_required=Vous devez avoir le rôle {} pour être capable d'éxecuter cette commande !
+verified_role=Rôle vérifié
+verified_role_is=Le rôle vérifié du serveur est 
+success_set_verified_role=Le rôle vérifié du serveur est maintenant {}
+success_unset_verified_role=Le rôle vérifié du serveur à été désactivé
 
 mod_help=Gère la modération
 mod_description=Aide à modérer le serveur.

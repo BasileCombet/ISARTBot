@@ -15,7 +15,6 @@ confirmation_footer=React with 👍 if you want to continue
 missing_perms_error=Oops! It looks like you're missing one of the following permissions to run this command : {0}.
 missing_bot_perms_error=Oops! It looks like the bot is missing one of the following permissions to run this command.
 unauthorized_command=Only {0}s are able to use this command.
-verified_role_required=You must have the {} role to be able to execute this command!
 
 moderator_status=moderator
 super_admin_status=super administrator
@@ -249,6 +248,27 @@ success_live_role_disable=Live roles have successfully been disabled for this se
 
 mod_help=Manages moderation
 mod_description=Helps moderating the server.
+
+# Verification
+
+## Commands
+
+mod_verification_help=Verification role subcommand group
+mod_verification_description=Shows the current verified role of the server
+
+mod_verification_set_help=Sets a verified role
+mod_verification_set_description=Sets a verified role
+
+mod_verification_unset_help=Disables the verified role
+mod_verification_unset_description=Disables the verified role of the server
+
+## Other
+
+verified_role_required=You must have the {} role to be able to execute this command!
+verified_role=Verified Role
+verified_role_is=The current verified role for this server is
+success_set_verified_role=The verified role of the server has been set to {}
+success_unset_verified_role=The verified role of the server has been unset
 
 # Log
 mod_log_set_help=Sets a moderation channel
